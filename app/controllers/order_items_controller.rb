@@ -1,0 +1,41 @@
+class OrderItemsController < InheritedResources::Base
+
+  private
+
+    def order_item_params
+      params.require(:order_item).permit(:order_id, :product_id, :quantity, :price)
+    end
+
+end
+
+
+# app/controllers/order_items_controller.rb
+class OrderItemsController < ApplicationController
+  def create
+    @order = current_order
+    @order_item = @order.order_items.new(order_item_params)
+    @order.save
+    session[:order_id] = @order.id
+  end
+
+  def update
+    @order = current_order
+    @order_item = @order.order_items.find(params[:id])
+    @order_item.update_attributes(order_item_params)
+    @order_items = @order.order_items
+  end
+
+  def destroy
+    @order = current_order
+    @order_item = @order.order_items.find(params[:id])
+    @order_item.destroy
+    @order_items = @order.order_items
+  end
+
+  private
+
+  def order_item_params
+    params.require(:order_item).permit(:product_id, :quantity)
+  end
+end
+
