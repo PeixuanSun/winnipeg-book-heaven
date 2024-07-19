@@ -1,9 +1,11 @@
-class ProductsController < InheritedResources::Base
+class ProductsController < ApplicationController
+  def index
+    @products = Product.all
+  end
 
   private
 
-    def product_params
-      params.require(:product).permit(:title, :author, :description, :price, :stock)
-    end
-
+  def product_params
+    params.require(:product).permit(:title, :author, :description, :price, :stock)
+  end
 end

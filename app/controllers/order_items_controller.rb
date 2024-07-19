@@ -1,14 +1,3 @@
-class OrderItemsController < InheritedResources::Base
-
-  private
-
-    def order_item_params
-      params.require(:order_item).permit(:order_id, :product_id, :quantity, :price)
-    end
-
-end
-
-
 # app/controllers/order_items_controller.rb
 class OrderItemsController < ApplicationController
   def create
@@ -38,4 +27,3 @@ class OrderItemsController < ApplicationController
     params.require(:order_item).permit(:product_id, :quantity)
   end
 end
-
