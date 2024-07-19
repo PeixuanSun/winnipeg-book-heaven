@@ -30,6 +30,7 @@ gem 'devise'
 gem 'activeadmin'
 gem 'ransack'
 gem 'active_storage_validations'
+gem 'sassc-rails'
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
