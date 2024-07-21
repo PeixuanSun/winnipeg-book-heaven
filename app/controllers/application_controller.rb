@@ -1,6 +1,8 @@
 # app/controllers/application_controller.rb
 class ApplicationController < ActionController::Base
-  before_action :authenticate_user!
+  layout :layout_by_resource
+
+  # before_action :authenticate_user!
 
   helper_method :current_order
 
@@ -18,5 +20,15 @@ class ApplicationController < ActionController::Base
       session[:order_id] = order.id
     end
     return order
+  end
+
+  private
+
+  def layout_by_resource
+    if devise_controller?
+      "devise"
+    else
+      "application"
+    end
   end
 end
