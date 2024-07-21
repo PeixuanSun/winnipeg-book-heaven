@@ -7,6 +7,16 @@ class ProductsController < ApplicationController
 
   def show;end
 
+  def search
+    @products = if params[:query].present?
+      Product.ransack(title_or_description_cont: params[:query]).result.order(:title).page(params[:page]).per(20)
+    else
+      Product.order(:title).page(params[:page]).per(20)
+    end
+
+    render :index
+  end
+
   private
 
   def product_params
