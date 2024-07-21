@@ -12,7 +12,7 @@ if Rails.env.development?
   # Create Admin user
   AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if AdminUser.find_by(email:'admin@example.com').blank?
 
-  # Create 4 products
+  # Create 4 categories
   4.times do |i|
     Category.create!(name: Faker::Book.genre)
   end
