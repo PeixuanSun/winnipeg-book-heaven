@@ -12,7 +12,11 @@ Rails.application.routes.draw do
   root to: 'products#index'
 
   resources :product_categories
-  resources :products
+  resources :products do
+    collection do
+      match 'search' => 'products#search', via: [:get, :post], as: :search
+    end
+  end
   resources :orders
   resources :order_items
   resources :categories
