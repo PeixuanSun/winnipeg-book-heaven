@@ -8,11 +8,16 @@ class ProductsController < ApplicationController
   def show;end
 
   def search
-    @products = if params[:query].present?
-      Product.ransack(title_or_description_cont: params[:query]).result.order(:title).page(params[:page]).per(20)
-    else
-      Product.order(:title).page(params[:page]).per(20)
+    @products = Product.order(:title)
+
+    @products = @products.ransack(title_or_description_cont: params[:query]).result if params[:query].present?
+
+    if params[:c_id].present?
+      category = Category.find(params[:c_id])
+      @products = @products.joins(:categories).where(categories: { id: category.id })
     end
+
+    @products = @products.page(params[:page]).per(20)
 
     render :index
   end

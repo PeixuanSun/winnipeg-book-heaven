@@ -35,14 +35,6 @@
               </ul>
             </li>
           </ul>
-          <%= form_tag search_products_path, method: :get, id: "search_form", class: "form-inline my-2 my-lg-6 me-auto" do %>
-            <div class="input-group">
-              <%= text_field_tag :query, params[:query], placeholder: "Search", class: "form-control" %>
-              <%= button_tag type: "submit", class: "input-group-text" do %>
-                  <i class="bi bi-search"></i>
-              <% end %>
-            </div>
-          <% end %>
           <ul class="navbar-nav">
             <% if user_signed_in? %>
               <li class="nav-item">
@@ -70,17 +62,38 @@
       </div>
     </nav>
 
-    <!-- Header-->
-    <header class="bg-dark py-5">
-      <div class="container px-4 px-lg-5 my-5">
-        <div class="text-center text-white">
-          <h1 class="display-4 fw-bolder">Shop in style</h1>
-          <p class="lead fw-normal text-white-50 mb-0">With this shop hompeage template</p>
-        </div>
+     <!-- Search bar -->
+    <nav class="navbar navbar-light bg-ligh">
+      <div class="container px-lg-5 justify-content-start">
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+              Categories
+            </button>
+            <ul class="dropdown-menu">
+              <li>
+                <%= link_to search_products_path, class: 'dropdown-item' do %>
+                 All Category
+                <% end %>
+              </li>
+              <li><hr class="dropdown-divider"></li>
+              <% Category.all.each do |c| %>
+                <li>
+                  <%= link_to search_products_path(c_id: c.id), class: 'dropdown-item' do %>
+                    <%= c.name %>
+                  <% end %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+          <%= form_tag search_products_path, method: :get, id: "search_form", class: "form-inline d-flex mx-2" do %>
+            <%= hidden_field_tag :c_id, params[:c_id] %>
+            <%= text_field_tag :query, params[:query], placeholder: "Search", class: "form-control mr-sm-2" %>
+            <button class="btn btn-outline-success my-2 my-sm-0 mx-2" type="submit">Search</button>
+        <% end %>
       </div>
-    </header>
+    </nav>
 
-    <!-- Section-->
+    <!-- Section -->
     <%= yield %>
 
     <!-- Footer-->
