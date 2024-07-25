@@ -5,7 +5,11 @@ class ProductsController < ApplicationController
     @products = Product.order(:title).page(params[:page]).per(20)
   end
 
-  def show;end
+  def show
+    add_breadcrumb "Home", :root_path
+    add_breadcrumb @product.id
+    add_breadcrumb @product.title
+  end
 
   def search
     @products = Product.order(:title)
