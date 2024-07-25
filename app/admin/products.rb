@@ -14,6 +14,7 @@ ActiveAdmin.register Product do
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
+
   show do
     attributes_table do
       row :image do
