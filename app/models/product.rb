@@ -7,6 +7,17 @@ class Product < ApplicationRecord
   validates :price, :stock, numericality: { greater_than_or_equal_to: 0 }
   validates :title, uniqueness: true
 
+  before_destroy :purge_image
+  def purge_image
+    image.purge if image.attached?
+  end
+
+  before_destroy :delete_product_categories
+  def delete_product_categories
+    product_categories.destroy_all if product_categories.any?
+  end
+
+
   private
 
   def self.ransackable_attributes(auth_object = nil)
