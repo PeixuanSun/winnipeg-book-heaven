@@ -4,7 +4,6 @@ class Category < ApplicationRecord
 
   validates :name, presence: true
   validates :name, uniqueness: true
-  validates :name, format: { with: /\A[a-zA-Z]+\z/, message: 'must consist of letters only' }
 
   private
 
